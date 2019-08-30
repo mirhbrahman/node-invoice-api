@@ -4,8 +4,15 @@
   "description": "Online invoice web application",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "MIR HB RAHMAN",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "config": "^3.2.2",
+    "express": "^4.17.1",
+    "helmet": "^3.20.1",
+    "mongoose": "^5.6.11"
+  }
 }
