@@ -1,5 +1,7 @@
-const test = require('./api/v1/client/test')
+const clientAuth = require('./api/v1/client/users/auth')
 
 module.exports = function(app){
-	app.use('/api', test)
+	// ...........Client...........
+	// Auth
+	app.use('/api', clientAuth)
 }

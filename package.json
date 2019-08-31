@@ -10,9 +10,14 @@
   "author": "MIR HB RAHMAN",
   "license": "ISC",
   "dependencies": {
+    "@hapi/joi": "^15.1.1",
+    "app-root-path": "^2.2.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
     "config": "^3.2.2",
     "express": "^4.17.1",
     "helmet": "^3.20.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.11"
   }
 }
