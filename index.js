@@ -1,3 +1,4 @@
+const passport = require("passport");
 const bodyParser = require('body-parser')
 const config = require('config')
 const mongoose = require('mongoose')
@@ -16,6 +17,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 // Add security header
 app.use(helmet())
+
+// Passport middleware
+app.use(passport.initialize());
+
+// Passport Config
+require("./utils/passport")(passport);
 
 // All Routes
 require('./routes')(app)
