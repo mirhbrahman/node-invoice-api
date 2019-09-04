@@ -13,4 +13,12 @@ module.exports = function(app){
 	app.use('/api', clientAuth)
 	// Company settings
 	app.use('/api/settings', auth, companySettings)
+
+	// 404 not found
+	app.use('*', (req, res)=>{
+		res.status(404).json({
+			success: false,
+			message: '404 not found.'
+		})
+	})
 }

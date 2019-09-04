@@ -63,3 +63,18 @@ exports.putCompanySettings = (req, res) => {
 		})
 		.catch(err=>somethingError(res, err))
 }
+
+// Get company info
+exports.getCompanySettings = (req, res) => {
+	// Get user settings info
+	User.findById(req.user._id)
+		.then(user=>{
+			if(user){
+				res.json({
+					success: true,
+					user: user
+				})
+			}
+		})
+		.catch(err=>somethingError(res, err))
+}
