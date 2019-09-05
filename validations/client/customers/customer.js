@@ -17,10 +17,25 @@ module.exports = data => {
 			.min(2)
 			.max(100)
 			.allow(null),
-		default_vat: Joi.number()
-			.integer()
-			.min(0)
-			.max(100)
+		first_name: Joi.string()
+			.min(2)
+			.max(50)
+			.required(),
+		last_name: Joi.string()
+			.min(2)
+			.max(50)
+			.required(),
+		email: Joi.string()
+			.min(2)
+			.max(256)
+			.required(),
+		phone: Joi.string()
+			.min(8)
+			.max(20)
+			.allow(null),
+		phone2: Joi.string()
+			.min(8)
+			.max(20)
 			.allow(null),
 		address: Joi.string()
 			.max(1000)
@@ -31,29 +46,12 @@ module.exports = data => {
 		city: Joi.string()
 			.max(100)
 			.allow(null),
+		country_id: Joi.string()
+			.allow(null),
 		web: Joi.string()
 			.max(1000)
-			.allow(null),
-		ctp_first_name: Joi.string()
-			.min(2)
-			.max(50)
-			.allow(null),
-		ctp_last_name: Joi.string()
-			.min(2)
-			.max(50)
-			.allow(null),
-		ctp_email: Joi.string()
-			.min(2)
-			.max(256)
-			.allow(null),
-		ctp_phone: Joi.string()
-			.min(8)
-			.max(20)
-			.allow(null),
-		ctp_phone2: Joi.string()
-			.min(8)
-			.max(20)
 			.allow(null)
+		
 	}
 
 	return validationErrorMessage(data, schema)
