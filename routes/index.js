@@ -3,7 +3,8 @@ const appRoot = require('app-root-path')
 // Routes
 const clientAuth = require('./api/v1/client/users/auth')
 const companySettings = require('./api/v1/client/users/company')
-const customers = require('./api/v1/client/customer')
+const customers = require('./api/v1/client/customers')
+const products = require('./api/v1/client/products')
 
 // Middlewares
 const auth = require(appRoot+"/middlewares/auth")
@@ -16,6 +17,8 @@ module.exports = function(app){
 	app.use('/api/settings', auth, companySettings)
 	// Customers
 	app.use('/api/customers', auth, customers)
+	// Products
+	app.use('/api/products', auth, products)
 
 	// 404 not found
 	app.use('*', (req, res)=>{
