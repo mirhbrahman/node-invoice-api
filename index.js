@@ -12,7 +12,7 @@ mongoose.connect(config.get('mongoURI'), { useNewUrlParser: true})
 	.catch(err => console.log(err))
 
 // Load body parser
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // Add security header

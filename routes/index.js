@@ -20,6 +20,14 @@ module.exports = function(app){
 	// Products
 	app.use('/api/products', auth, products)
 
+
+	// Handle error
+	app.use(function (err, req, res, next) {
+	  res.status(500).json({
+	  	success: false,
+	  	message: err.message
+	  })
+	})
 	// 404 not found
 	app.use('*', (req, res)=>{
 		res.status(404).json({

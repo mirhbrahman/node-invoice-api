@@ -10,6 +10,7 @@ const userSchema = new Schema({
 	country_id: { type: Schema.Types.ObjectId },
 	vat_no: { type: String, minlength: 2, maxlength: 100 },
 	default_vat: { type: Number, max: 100, default: 0 },
+	logo_id: { type: String, max:255 }, 
 	logo: { type: String}, 
 	subscription: { type: Number, default: 0 },
 	status: { type: Boolean, default: true },

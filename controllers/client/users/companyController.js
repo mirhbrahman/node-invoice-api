@@ -7,6 +7,9 @@ const validateCompanySettingsInput = require(appRoot+'/validations/client/users/
 // Models
 const User = require(appRoot+'/models/client/user')
 
+// Upload image
+const { deleteServerImage } = require(appRoot+'/utils/cloudinary');
+
 // Update company settings
 exports.putCompanySettings = (req, res) => {
 	// Validate company settings input
@@ -14,8 +17,8 @@ exports.putCompanySettings = (req, res) => {
 	if(errors) return res.status(400).json(errors)
 
 	// Find user/company for update data
-	User.findById(req.user._id)
-		.then(user=>{
+User.findById(req.user._id)
+.then(user=>{
 			// Extract body data
 			const {
 				company_name,
@@ -51,30 +54,76 @@ exports.putCompanySettings = (req, res) => {
 
 			// Update DB
 			user.save()
-				.then(user => {
-					if(user){
-						return res.status(201).json({
-							success: true,
-							user: user
-						})
-					}
-				})
-				.catch(err=>somethingError(res, err))
+			.then(user => {
+				if(user){
+					return res.status(201).json({
+						success: true,
+						user: user
+					})
+				}
+			})
+			.catch(err=>somethingError(res, err))
 		})
-		.catch(err=>somethingError(res, err))
+.catch(err=>somethingError(res, err))
 }
 
 // Get company info
 exports.getCompanySettings = (req, res) => {
 	// Get user settings info
 	User.findById(req.user._id)
-		.then(user=>{
-			if(user){
-				res.json({
-					success: true,
-					user: user
-				})
+	.then(user=>{
+		if(user){
+			res.json({
+				success: true,
+				user: user
+			})
+		}
+	})
+	.catch(err=>somethingError(res, err))
+}
+
+// Upload company logo
+exports.putUploadLogo = (req, res) => {
+
+	User.findOne({_id: req.user._id})
+	.then(user=>{
+		if(user){
+				// Upload image
+				if(req.file){
+
+					// Check if user already has a logo delete it and upload new
+					if(user.logo_id){
+						// Delete old logo
+						const result = deleteServerImage(user.logo_id)
+						// Upload new logo
+						user.logo_id = req.file.public_id
+						user.logo = req.file.url
+					}else{
+						// Upload new logo
+						user.logo_id = req.file.public_id
+						user.logo = req.file.url
+					}
+
+					// Update user
+					user.save()
+					.then(user => {
+						if(user){
+							return res.status(201).json({
+								success: true,
+								user: user
+							})
+						}
+					})
+					.catch(err=>somethingError(res, err))
+				}else{
+					return res.json({
+						success: false,
+						message: 'Please select a logo'
+					})
+				}
+			}else{
+				noDataFound(res)
 			}
 		})
-		.catch(err=>somethingError(res, err))
+	.catch(err=>somethingError(res, err))
 }
